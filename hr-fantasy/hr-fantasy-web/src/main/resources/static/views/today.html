@@ -4,7 +4,7 @@
     <br/>
 
     <div ng-if="!user || !user.name || !user.token" id="unauthorized" class="">
-        <div class="alert alert-danger">Please login to view status and configure the Caerus exchange message initialisation</div>
+        <div class="alert alert-danger">Please login</div>
     </div>
 
     <div ng-if="user && user.name && user.token" id="authorized">
