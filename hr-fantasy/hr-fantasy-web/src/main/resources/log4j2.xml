@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" monitorInterval="60">
+    <Appenders>
+        <RollingFile name="hr-exchange-initialiser" append="true" bufferedIO="true"
+                     fileName="hr-exchange-initialiser.log"
+                     filePattern="hr-exchange-initialiser.log.%d{yyyyMMdd_hh}.gz">
+            <PatternLayout pattern="%d{DD-MM-YYYY} %d{HH:mm:ss.SSS} %-5level - %X{uuid} - %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+        <Console name="console">
+            <PatternLayout pattern="%d{DD-MM-YYYY} %d{HH:mm:ss.SSS} %-5level - %X{uuid} - %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="hr-exchange-initialiser"/>
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</Configuration>
