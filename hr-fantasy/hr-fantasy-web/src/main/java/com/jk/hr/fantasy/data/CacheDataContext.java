@@ -14,12 +14,15 @@ public class CacheDataContext implements DataContext {
 
     private Map<String, Object> data;
 
-    @Resource(name="fileDataContext")
     private FileDataContext fileDataContext;
 
     public CacheDataContext() {
         this.data = new HashMap<>();
-        this.fileDataContext = new FileDataContext("data");
+    }
+
+    @Resource(name="fileDataContext")
+    public void setFileDataContext(FileDataContext fileDataContext) {
+        this.fileDataContext = fileDataContext;
     }
 
     @Override
@@ -29,7 +32,7 @@ public class CacheDataContext implements DataContext {
     }
 
     @Override
-    public <T> T load(Class<T> clazz, String ... keys) throws IOException{
+    public <T> T load(Class<T> clazz, String ... keys) {
 
         if(keys == null || keys.length < 1) {
             throw new UnsupportedOperationException("Unable to load " + clazz.getSimpleName() + " without a key");

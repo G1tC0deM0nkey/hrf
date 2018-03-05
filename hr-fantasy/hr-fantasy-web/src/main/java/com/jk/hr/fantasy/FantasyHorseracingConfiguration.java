@@ -8,14 +8,14 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix="application")
 public class FantasyHorseracingConfiguration {
 
-    @Value("${application.test.value}")
-    private String testValue;
+    @Value("${application.data.root.directory}")
+    private String dataDirectory;
 
-    public String getTestValue() {
-        return testValue;
+    public String getDataDirectory() {
+        return dataDirectory;
     }
 
-    public void setTestValue(String testValue) {
-        this.testValue = testValue;
+    public void setDataDirectory(String dataDirectory) {
+        this.dataDirectory = dataDirectory;
     }
 }

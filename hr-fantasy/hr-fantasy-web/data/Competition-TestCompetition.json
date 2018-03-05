@@ -1,0 +1,6 @@
+{
+  "name":"TestCompetition",
+  "stages": [
+    "stage1", "stage2"
+  ]
+}

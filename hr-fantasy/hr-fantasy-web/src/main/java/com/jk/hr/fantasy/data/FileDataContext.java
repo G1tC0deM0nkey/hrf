@@ -1,7 +1,9 @@
 package com.jk.hr.fantasy.data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jk.hr.fantasy.FantasyHorseracingConfiguration;
 import com.jk.hr.fantasy.core.Keyed;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -13,14 +15,23 @@ import java.util.List;
 @Component("fileDataContext")
 public class FileDataContext implements DataContext {
 
+    private FantasyHorseracingConfiguration configuration;
+
     private String root;
 
     private File rootFile;
 
     private ObjectMapper mapper;
 
-    public FileDataContext(String root) {
-        this.root = root;
+    public FileDataContext() {
+    }
+
+    @Autowired
+    public void setConfiguration(FantasyHorseracingConfiguration configuration) {
+
+        this.configuration = configuration;
+
+        this.root = configuration.getDataDirectory();
         this.rootFile = new File(root);
 
         if(!this.rootFile.exists()) {
@@ -60,21 +71,27 @@ public class FileDataContext implements DataContext {
     }
 
     @Override
-    public <T> T load(Class<T> clazz, String ... keys) throws IOException {
+    public <T> T load(Class<T> clazz, String ... keys) {
 
-        if(keys == null || keys.length < 1) {
-            throw new UnsupportedOperationException("Unable to load " + clazz.getSimpleName() + " without a key");
+        try {
+            if (keys == null || keys.length < 1) {
+                throw new UnsupportedOperationException("Unable to load " + clazz.getSimpleName() + " without a key");
+            }
+
+            String key = "";
+
+            for (String k : keys) {
+                key = key + k + "-";
+            }
+            key = key.substring(0, key.length() - 1);
+
+            String fileName = clazz.getSimpleName() + "-" + key + ".json";
+            T object = mapper.readValue(new File(root + "/" + fileName), clazz);
+            return object;
         }
-
-        String key = "";
-        for(String k : keys) {
-            key = key + k + "-";
+        catch(Exception e) {
+            return null;
         }
-        key = key.substring(0, key.length()-1);
-
-        String fileName = clazz.getSimpleName() + "-" + key + ".json";
-        T object = mapper.readValue(new File(root + "/" + fileName), clazz);
-        return object;
     }
 
     @Override
