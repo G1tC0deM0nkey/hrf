@@ -1,36 +1,69 @@
 package com.jk.hr.fantasy.controller;
 
+import com.jk.hr.fantasy.data.DataContext;
+import com.jk.hr.fantasy.users.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.*;
 
 @Component(value="userTokenRepository")
 public class UserTokenRepository {
 
+    private static final Logger LOG = LogManager.getLogger(UserTokenRepository.class);
+
     private Map<String, UserTokenWithTimeout> userTokens = new HashMap<String, UserTokenWithTimeout>();
 
-    public String login(String user) {
+    @Resource(name="dataContext")
+    private DataContext dataContext;
 
-        if(!userTokens.containsKey(user)) {
-            userTokens.put(user, new UserTokenWithTimeout(UUID.randomUUID().toString()));
+    public String login(String user, String pin) {
+
+        if(userTokens.containsKey(user)) {
+            UserTokenWithTimeout token = userTokens.get(user);
+            if(!token.isTimedOut() && token.getUser().getPin().equals(pin)) {
+                return token.token;
+            }
+        }
+        else {
+            try {
+                User loaded = dataContext.load(User.class, user);
+
+                if(loaded != null && loaded.getPin().equals(pin)) {
+                    UserTokenWithTimeout token = new UserTokenWithTimeout(loaded, UUID.randomUUID().toString());
+                    userTokens.put(user, token);
+                    return token.token;
+                }
+
+            } catch(IOException ioe) {
+                LOG.warn("Login failed for user " + user, ioe);
+                return null;
+            }
         }
 
-        return userTokens.get(user).token;
+        return null;
+
     }
 
-    public boolean validate(String user, String token) {
+    public User validate(String user, String token) {
 
         timeout();
 
-        UserTokenWithTimeout timeoutToken = userTokens.get(user);
-        String storedToken = timeoutToken == null || timeoutToken.isTimedOut() ? null : timeoutToken.token;
-        return token != null && token.equals(storedToken);
+        if(userTokens.containsKey(user)) {
+            UserTokenWithTimeout existing = userTokens.get(user);
+            if(!existing.isTimedOut() && existing.token.equals(token)) {
+                return existing.getUser();
+            }
+        }
+
+        return null;
     }
 
-    public void logout(String user, String token) {
-        if(validate(user, token)) {
-            userTokens.remove(user);
-        }
+    public void logout(String user) {
+        userTokens.remove(user);
     }
 
     private void timeout() {
@@ -53,11 +86,17 @@ public class UserTokenRepository {
 
         private String token;
 
+        private User user;
+
         private long timeout;
 
-        public UserTokenWithTimeout(String token) {
+        public UserTokenWithTimeout(User user, String token) {
             this.token = token;
             this.timeout = System.currentTimeMillis() + (60 * 60 * 1000);
+        }
+
+        public User getUser() {
+            return user;
         }
 
         public boolean isTimedOut() {

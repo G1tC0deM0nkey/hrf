@@ -7,7 +7,7 @@ public class Competition implements Keyed {
 
     private String name;
 
-    private List<Stage> stages;
+    private List<String> stages;
 
     @Override
     public String key() {
@@ -22,11 +22,11 @@ public class Competition implements Keyed {
         this.name = name;
     }
 
-    public List<Stage> getStages() {
+    public List<String> getStages() {
         return stages;
     }
 
-    public void setStages(List<Stage> stages) {
+    public void setStages(List<String> stages) {
         this.stages = stages;
     }
 

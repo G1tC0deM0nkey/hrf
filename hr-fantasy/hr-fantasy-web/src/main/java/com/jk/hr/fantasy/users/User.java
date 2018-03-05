@@ -12,7 +12,9 @@ public class User implements Keyed {
 
     private String email;
 
-    private String hash;
+    private String pin;
+
+    private boolean admin;
 
     @Override
     public String key() {
@@ -43,12 +45,20 @@ public class User implements Keyed {
         this.email = email;
     }
 
-    public String getHash() {
-        return hash;
+    public String getPin() {
+        return pin;
     }
 
-    public void setHash(String hash) {
-        this.hash = hash;
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     @Override
@@ -56,16 +66,17 @@ public class User implements Keyed {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(userName, user.userName) &&
+        return admin == user.admin &&
+                Objects.equals(userName, user.userName) &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(hash, user.hash);
+                Objects.equals(pin, user.pin);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(userName, name, email, hash);
+        return Objects.hash(userName, name, email, pin, admin);
     }
 
     @Override
@@ -74,7 +85,9 @@ public class User implements Keyed {
                 "userName='" + userName + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", hash='" + hash + '\'' +
+                ", pin='" + pin + '\'' +
+                ", admin=" + admin +
                 '}';
     }
 }
+

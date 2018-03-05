@@ -22,6 +22,10 @@ public class Runner {
 
     private boolean nr;
 
+    private String position;
+
+    private Double sp;
+
     public int getRacecardNumber() {
         return racecardNumber;
     }
@@ -94,6 +98,22 @@ public class Runner {
         this.nr = nr;
     }
 
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public Double getSp() {
+        return sp;
+    }
+
+    public void setSp(Double sp) {
+        this.sp = sp;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,13 +127,15 @@ public class Runner {
                 Objects.equals(stall, runner.stall) &&
                 Objects.equals(jockey, runner.jockey) &&
                 Objects.equals(trainer, runner.trainer) &&
-                Objects.equals(rating, runner.rating);
+                Objects.equals(rating, runner.rating) &&
+                Objects.equals(position, runner.position) &&
+                Objects.equals(sp, runner.sp);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(racecardNumber, name, form, weight, stall, jockey, trainer, rating, nr);
+        return Objects.hash(racecardNumber, name, form, weight, stall, jockey, trainer, rating, nr, position, sp);
     }
 
     @Override
@@ -128,6 +150,8 @@ public class Runner {
                 ", trainer='" + trainer + '\'' +
                 ", rating='" + rating + '\'' +
                 ", nr=" + nr +
+                ", position='" + position + '\'' +
+                ", sp=" + sp +
                 '}';
     }
 }
