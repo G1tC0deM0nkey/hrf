@@ -16,7 +16,7 @@ controllers.controller('UserController', function ($scope, $http) {
         var username = user.name;
         var password = user.password;
 
-        $http.post('/user/login?username=' + username + '&password=' + password)
+        $http.post('/user/login?username=' + username + '&pin=' + password)
             .success(function(data) {
                 user.token = data;
 
@@ -35,7 +35,7 @@ controllers.controller('UserController', function ($scope, $http) {
 
     $scope.logout = function(user) {
 
-        $http.post('user/logout?username=' + user.name + '&token=' + user.token)
+        $http.post('user/logout?username=' + user.name)
             .success(function(data) {
                 user.name = null;
                 user.password = null;
@@ -73,32 +73,16 @@ controllers.controller('UserController', function ($scope, $http) {
 
 });
 
-controllers.controller('TodayController', function($scope, $http){
+controllers.controller('CompetitionsController', function($scope, $http){
 
 });
 
-controllers.controller('TomorrowController', function($scope, $http){
+controllers.controller('EntriesController', function($scope, $http){
 
 });
 
-controllers.controller('HomeController', function($scope, $http){
+controllers.controller('ResultsController', function($scope, $http){
 
 });
 
-controllers.controller('ListRacesController',function($scope, $http){
-	$http.get('races/find')
-	.success(function(data){
-		$scope.fixtures = data;
-	})
-	.error(function(data){
-		alert('Error');
-	});
-});
 
-controllers.controller('PromptInitialisationController',function($scope, $http){
-
-});
-
-controllers.controller('ToggleInitialisationController',function($scope, $http){
-
-});

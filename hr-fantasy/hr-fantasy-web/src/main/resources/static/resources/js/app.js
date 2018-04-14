@@ -4,21 +4,17 @@ var myApp = angular.module('myApp',['ngRoute','myApp.controllers']);
 myApp.config(['$routeProvider', '$httpProvider',
         function ($routeProvider, $httpProvider) {
             $routeProvider
-                .when('/home', {
-                    templateUrl: 'views/home.html',
-                    controller: 'HomeController'
+                .when('/competitions', {
+                    templateUrl: 'views/competitions.html',
+                    controller: 'CompetitionsController'
                 })
-                .when('/today', {
-                    templateUrl: 'views/today.html',
-                    controller: 'TodayController'
+                .when('/entries', {
+                    templateUrl: 'views/entries.html',
+                    controller: 'EntriesController'
                 })
-                .when('/tomorrow', {
-                    templateUrl: 'views/tomorrow.html',
-                    controller: 'TomorrowController'
-                })
-		        .when('/login', {
-                    templateUrl: 'views/home.html',
-                    controller: 'HomeController'
+		        .when('/results', {
+                    templateUrl: 'views/results.html',
+                    controller: 'ResultsController'
                 })
 		        .when('/logout', {
                     templateUrl: 'views/home.html',

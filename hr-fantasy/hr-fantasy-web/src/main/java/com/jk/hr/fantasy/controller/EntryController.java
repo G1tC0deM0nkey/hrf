@@ -4,6 +4,7 @@ import com.jk.hr.fantasy.core.*;
 import com.jk.hr.fantasy.data.DataContext;
 import com.jk.hr.fantasy.users.User;
 import org.joda.time.DateTime;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,8 @@ public class EntryController {
     @Resource(name="userTokenRepository")
     UserTokenRepository userTokenRepository;
 
-    @RequestMapping(value="entrant/add", method= RequestMethod.POST)
+    @RequestMapping(value="entrant/add", method= RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @ResponseStatus(code= HttpStatus.OK)
     public void addEntrant(@RequestParam String username, @RequestParam String token, @RequestBody Entrant entrant) throws Exception {
         //If authorised
         User ordinaryUser = userTokenRepository.validate(username, token);
@@ -53,8 +55,8 @@ public class EntryController {
         return null;
     }
 
-    @RequestMapping(value="entrant/pay", method= RequestMethod.POST)
-    public void addEntrant(@RequestParam String username, @RequestParam String token, @RequestParam String entrant) throws Exception {
+    @RequestMapping(value="entrant/pay", method= RequestMethod.POST, produces = "application/json")
+    @ResponseStatus(code= HttpStatus.OK)public void addEntrant(@RequestParam String username, @RequestParam String token, @RequestParam String entrant) throws Exception {
         //If authorised
         User adminUser = userTokenRepository.validate(username, token);
         if(adminUser != null && adminUser.isAdmin()) {
@@ -64,7 +66,8 @@ public class EntryController {
         }
     }
 
-    @RequestMapping(value="entry/add", method= RequestMethod.POST)
+    @RequestMapping(value="entry/add", method= RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @ResponseStatus(code= HttpStatus.OK)
     public void addEntry(@RequestParam String username, @RequestParam String token, @RequestBody Entry entry) throws Exception {
 
         //If authorised
@@ -97,6 +100,7 @@ public class EntryController {
     }
 
     @RequestMapping(value="entry/show", method= RequestMethod.GET)
+    @ResponseStatus(code= HttpStatus.OK)
     public Entry getEntry(@RequestParam String username, @RequestParam String token, @RequestParam String competitionName, String stageName) throws Exception {
 
         //If authorised
@@ -116,7 +120,8 @@ public class EntryController {
         return null;
     }
 
-    @RequestMapping(value="entry/force", method= RequestMethod.POST)
+    @RequestMapping(value="entry/force", method= RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @ResponseStatus(code= HttpStatus.OK)
     public void forceEntry(@RequestParam String username, @RequestParam String token, @RequestBody Entry entry) throws Exception {
 
         //If authorised

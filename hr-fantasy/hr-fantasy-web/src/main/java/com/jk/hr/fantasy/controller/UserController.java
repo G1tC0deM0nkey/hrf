@@ -33,7 +33,7 @@ public class UserController {
         userTokenRepository.logout(username);
     }
 
-    @RequestMapping(value="add", method=RequestMethod.POST)
+    @RequestMapping(value="add", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public void addUser(@RequestParam String username, @RequestParam String token, @RequestBody User user) throws Exception {
 
         //If authorised

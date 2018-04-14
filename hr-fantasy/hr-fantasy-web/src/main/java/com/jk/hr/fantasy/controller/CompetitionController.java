@@ -6,6 +6,7 @@ import com.jk.hr.fantasy.core.Stage;
 import com.jk.hr.fantasy.data.DataContext;
 import com.jk.hr.fantasy.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,8 @@ public class CompetitionController {
     @Resource(name="userTokenRepository")
     UserTokenRepository userTokenRepository;
 
-    @RequestMapping(value="add", method=RequestMethod.POST)
+    @RequestMapping(value="add", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @ResponseStatus(code= HttpStatus.OK)
     public void addCompetition(@RequestParam String username, @RequestParam String token, @RequestBody Competition competition) throws Exception {
         //If authorised
         User adminUser = userTokenRepository.validate(username, token);
@@ -43,7 +45,8 @@ public class CompetitionController {
         return null;
     }
 
-    @RequestMapping(value="stage/add", method=RequestMethod.POST)
+    @RequestMapping(value="stage/add", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @ResponseStatus(code= HttpStatus.OK)
     public void addStage(@RequestParam String username, @RequestParam String token, @RequestBody Stage stage) throws Exception {
         //If authorised
         User adminUser = userTokenRepository.validate(username, token);
@@ -71,7 +74,8 @@ public class CompetitionController {
         return null;
     }
 
-    @RequestMapping(value="race/add", method=RequestMethod.POST)
+    @RequestMapping(value="race/add", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @ResponseStatus(code= HttpStatus.OK)
     public void addRace(@RequestParam String username, @RequestParam String token, @RequestBody Race race) throws Exception {
         //If authorised
         User adminUser = userTokenRepository.validate(username, token);

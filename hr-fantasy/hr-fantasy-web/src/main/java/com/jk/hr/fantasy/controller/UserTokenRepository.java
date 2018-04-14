@@ -92,6 +92,7 @@ public class UserTokenRepository {
 
         public UserTokenWithTimeout(User user, String token) {
             this.token = token;
+            this.user = user;
             this.timeout = System.currentTimeMillis() + (60 * 60 * 1000);
         }
 
