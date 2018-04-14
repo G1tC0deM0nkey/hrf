@@ -69,6 +69,34 @@ controllers.controller('UserController', function ($scope, $http) {
             loginItem.className='dropdown';
             logoutItem.className='dropdown hide';
         }
+    };
+
+    $scope.showNewAccount = function() {
+        var na = $("#newaccount");
+        na.removeClass('hidden');
+
+        var naa = $("#newaccountalert");
+        naa.removeClass('hidden');
+
+        var fa = $("#forgotalert");
+        fa.addClass('hidden');
+
+        var sia = $("#signinalert");
+        sia.addClass('hidden');
+    }
+
+    $scope.showForgottenCredentials = function() {
+        var na = $("#newaccount");
+        na.addClass('hidden');
+
+        var naa = $("#newaccountalert");
+        naa.addClass('hidden');
+
+        var fa = $("#forgotalert");
+        fa.removeClass('hidden');
+
+        var sia = $("#signinalert");
+        sia.addClass('hidden');
     }
 
 });
