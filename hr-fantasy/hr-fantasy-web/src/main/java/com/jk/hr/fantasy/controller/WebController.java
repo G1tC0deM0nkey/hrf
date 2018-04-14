@@ -21,7 +21,7 @@ public class WebController {
 //
 //        boolean valid = userTokenRepository.validate(user, token);
 //        ThreadContext.put("uuid", token);
-//        LOG.info(String.format("User %s requests fixture creation and is %s", user, (valid ? "accepted" : "rejected")));
+//        LOG.info(String.format("setUserName %s requests fixture creation and is %s", user, (valid ? "accepted" : "rejected")));
 //
 //        if(valid) {
 //            StatusDto statusDto = new StatusDto();

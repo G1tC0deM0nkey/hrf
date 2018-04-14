@@ -81,7 +81,7 @@ public class User implements Keyed {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "setUserName{" +
                 "userName='" + userName + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +

@@ -1,6 +1,7 @@
 package com.jk.hr.fantasy.controller;
 
 import com.jk.hr.fantasy.data.DataContext;
+import com.jk.hr.fantasy.dto.UserDto;
 import com.jk.hr.fantasy.users.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +25,7 @@ public class UserController {
     protected DataContext dataContext;
 
     @RequestMapping(value = "login", method=RequestMethod.POST)
-    public @ResponseBody String login(@RequestParam String username, @RequestParam String pin) throws Exception {
+    public @ResponseBody UserDto login(@RequestParam String username, @RequestParam String pin) throws Exception {
         return userTokenRepository.login(username, pin);
     }
 

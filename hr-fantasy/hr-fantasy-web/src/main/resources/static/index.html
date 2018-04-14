@@ -47,7 +47,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <h2 class="navbar-brand">Cheltenham Competition</h2>
+            <h1 class="navbar-brand">Cheltenham Competition</h1>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <br/>
@@ -60,23 +60,24 @@
                                 <input name="utf8" type="hidden" value="&#x2713;" />
                             </div>
                             <fieldset class='textbox' style="padding:20px">
-                                <input style="margin-top: 8px;" type="text" placeholder="Username" autofocus="true" ng-model="user.name"/>
+                                <input style="margin-top: 8px;" type="text" placeholder="Username" autofocus="true" ng-model="user.userName"/>
                                 <input style="margin-top: 8px; margin-bottom: 8px;" type="password" placeholder="Password" ng-model="user.password"/>
                                 <input class="btn-primary" name="commit" type="submit" value="Log In" ng-click="login(user)"/>
                             </fieldset>
                         </form>
                     </div>
                 </li>
-                <li class="dropdown hide" id="logoutitem">
-                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"/> Logout <span class="caret"></span></a>
+                </li>
+                <li class="dropdown hidden" id="logoutitem">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"/> <b> {{ user.displayName }} </b> <span class="caret"></span></a>
                     <div class="dropdown-menu" role="menu">
                         <form style="margin: 0px" accept-charset="UTF-8" target="#/logout" method="GET">
                             <div style="margin:0;padding:0;display:inline">
-                                <input name="username" type="hidden" value="" ng-model="user.name"/>
+                                <input name="username" type="hidden" value="" ng-model="user.userName"/>
                                 <input name="token" type="hidden" value="" ng-model="user.token"/>
                             </div>
                             <fieldset class='textbox' style="padding:20px">
-                                <label>Logged in as <label name="loggedinuser">{{user.name}}</label>.</label>
+                                <label>Log out <label name="loggedinuser">{{user.displayName}}</label>.</label>
                                 <input class="btn-primary" name="commit" type="submit" value="Log Out" ng-click="logout(user)"/>
                             </fieldset>
                         </form>
@@ -93,14 +94,14 @@
 <br/>
 <br/>
 
-<div id="login" class="container main" role="main">
+<div id="login" class="container main" role="main" ng-if="!user.token">
     <br/>
     <div class="row">
 
         <form class="form-signin" _lpchecked="1">
             <h2 class="form-signin-heading">Please Sign In</h2>
             <label for="inputUsername" class="sr-only">Username</label>
-            <input id="inputUsername" ng-model="user.name" class="form-control" placeholder="Username" required="" autofocus="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
+            <input id="inputUsername" ng-model="user.userName" class="form-control" placeholder="Username" required="" autofocus="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" ng-model="user.password" id="inputPassword" class="form-control" placeholder="Password" required="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: pointer;">
 
@@ -121,29 +122,29 @@
     <br/>
 </div>
 
-<div id="signinalert" class="alert alert-info" role="alert">
-    Please sign in or click create a new account above to continue.
-</div>
-
-<div id="forgotalert" class="alert alert-info hidden" role="alert">
-    <strong>Forgotten Credentials?</strong> Please contact {{ config.owner.name }} at {{ config.owner.email }} to obtain new credentials.
-</div>
-
-<div id="newaccountalert" class="alert alert-info hidden" rolw="alert">
-    <strong>New Account?</strong> Please fill out the form details below to create an account.
-</div>
-
-<div id="newaccount" class="container main hidden" role="main">
-
-    <div class="row">
-
-        Create a new user account
-
+<div ng-if="!user.token">
+    <div id="signinalert" class="alert alert-info" role="alert">
+        Please sign in or click create a new account above to continue.
+    </div>
+    <div id="forgotalert" class="alert alert-info hidden" role="alert">
+        <strong>Forgotten Credentials?</strong> Please contact {{ config.ownerName }} at {{ config.ownerEmail }} to obtain new credentials.
+    </div>
+    <div id="newaccountalert" class="alert alert-info hidden" rolw="alert">
+        <strong>New Account?</strong> Please fill out the form details below to create an account.
     </div>
 
+    <div id="newaccount" class="container main hidden" role="main">
+
+        <div class="row">
+
+            Create a new user account
+
+        </div>
+
+    </div>
 </div>
 
-<div id="main" class="container main hidden" role="main">
+<div id="main" class="container main" role="main" ng-if="user.token">
     <ul class="nav nav-tabs">
         <li role="presentation" class="active" ng-class="{active: currentPage == '/competitions'}"><a href="#/competitions"> Competition </a></li>
         <li role="presentation" ng-class="{active: currentPage == '/entries'}"><a href="#/entries"> Entries </a></li>

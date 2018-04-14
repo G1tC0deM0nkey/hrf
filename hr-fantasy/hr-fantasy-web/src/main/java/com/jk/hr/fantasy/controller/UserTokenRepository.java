@@ -1,6 +1,7 @@
 package com.jk.hr.fantasy.controller;
 
 import com.jk.hr.fantasy.data.DataContext;
+import com.jk.hr.fantasy.dto.UserDto;
 import com.jk.hr.fantasy.users.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,12 +21,17 @@ public class UserTokenRepository {
     @Resource(name="dataContext")
     private DataContext dataContext;
 
-    public String login(String user, String pin) {
+    public UserDto login(String user, String pin) {
 
         if(userTokens.containsKey(user)) {
             UserTokenWithTimeout token = userTokens.get(user);
             if(!token.isTimedOut() && token.getUser().getPin().equals(pin)) {
-                return token.token;
+                UserDto dto = new UserDto();
+                dto.setUserName(token.user.getUserName());
+                dto.setToken(token.token);
+                dto.setDisplayName(token.user.getName());
+                dto.setAdmin(token.user.isAdmin());
+                return dto;
             }
         }
         else {
@@ -35,7 +41,13 @@ public class UserTokenRepository {
                 if(loaded != null && loaded.getPin().equals(pin)) {
                     UserTokenWithTimeout token = new UserTokenWithTimeout(loaded, UUID.randomUUID().toString());
                     userTokens.put(user, token);
-                    return token.token;
+
+                    UserDto dto = new UserDto();
+                    dto.setUserName(token.user.getUserName());
+                    dto.setToken(token.token);
+                    dto.setDisplayName(token.user.getName());
+                    dto.setAdmin(token.user.isAdmin());
+                    return dto;
                 }
 
             } catch(IOException ioe) {

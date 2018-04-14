@@ -2,8 +2,13 @@ var controllers = angular.module('myApp.controllers',[]);
 
 controllers.controller('UserController', function ($scope, $http) {
 
+    $scope.config = {
+        ownerName: "Administrator",
+        ownerEmail: "abc@abc.com"
+    };
+
     $scope.user = {
-        name: null,
+        userName: null,
         password: null,
         token: null
     };
@@ -13,42 +18,36 @@ controllers.controller('UserController', function ($scope, $http) {
         var loginItem = $( "li[id='loginitem']" )[0];
         var logoutItem = $( "li[id='logoutitem']" )[0];
 
-        var username = user.name;
+        var username = user.userName;
         var password = user.password;
 
         $http.post('/user/login?username=' + username + '&pin=' + password)
             .success(function(data) {
-                user.token = data;
+                var user = data;
 
-                $scope.setUser($scope.user);
+                $scope.setUser(user);
             })
             .error(function(data) {
                 alert('User Authentication Failed for ' + username);
-                user.name = null;
-                user.token = null;
-                user.password = null;
+                var user = {};
 
-                $scope.setUser($scope.user);
+                $scope.setUser(user);
             });
 
     };
 
     $scope.logout = function(user) {
 
-        $http.post('user/logout?username=' + user.name)
+        $http.post('user/logout?username=' + user.userName)
             .success(function(data) {
-                user.name = null;
-                user.password = null;
-                user.token = null;
+                var user = {};
 
-                $scope.setUser($scope.user);
+                $scope.setUser(user);
             })
             .error(function(data) {
-                user.name = null;
-                user.password = null;
-                user.token = null;
+                user = {};
 
-                $scope.setUser($scope.user);
+                $scope.setUser(user);
             });
 
     };
@@ -60,7 +59,7 @@ controllers.controller('UserController', function ($scope, $http) {
         var loginItem = $( "li[id='loginitem']" )[0];
         var logoutItem = $( "li[id='logoutitem']" )[0];
 
-        if(user.name != null && user.token != null)
+        if(user.displayName && user.token)
         {
             loginItem.className='dropdown hide';
             logoutItem.className='dropdown';
