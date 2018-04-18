@@ -1,32 +1,17 @@
 
-<div ng-controller="HomeController">
+<div ng-controller="CompetitionsController">
 
     <br/>
 
-    <div ng-if="!user || !user.name || !user.token" id="unauthorized" class="">
-        <div class="alert alert-danger">Please login</div>
+    <div ng-if="!authorised()" id="unauthorized" class="">
+        <div class="alert alert-danger">Login has expired, please refresh the page and login again</div>
     </div>
 
-    <div ng-if="user && user.name && user.token" id="authorized">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3>Competitions</h3>
-            </div>
-            <div class="panel-body">
-                <div>&nbsp;</div>
-
-                Competitions
-
-                <!--<div class="input-group input-group-lg navbar-right">
-                    <span><button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-refresh" title="Refresh"/></button></span>
-                    <span><button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-list" title="List Today's Races"/></button></span>
-                    <span><button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-cog" title="Configure Today's Scheduler"/></button></span>
-                    <span><button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-off" title="Toggle Scheduler On/Off"/></button></span>
-                    <span>&nbsp;</span>
-                </div>-->
-
-                <div>&nbsp;</div>
-            </div>
+    <div ng-if="authorised()" id="authorized">
+        <div class="main">
+            <h1 class="page-header">Competitions</h1>
+            <br/>
+            This page should allow a user to enter a competition until entries are disabled.
         </div>
     </div>
 </div>

@@ -100,16 +100,32 @@ controllers.controller('UserController', function ($scope, $http) {
 
 });
 
-controllers.controller('CompetitionsController', function($scope, $http){
 
+controllers.controller('AccountController', function($scope, $http){
+
+    $scope.authorised = function () {
+        return $scope.$parent.user && $scope.$parent.user.token;
+    }
+
+});
+
+controllers.controller('CompetitionsController', function($scope, $http){
+    $scope.authorised = function () {
+        return $scope.$parent.user && $scope.$parent.user.token;
+    }
 });
 
 controllers.controller('EntriesController', function($scope, $http){
-
+    $scope.authorised = function () {
+        return $scope.$parent.user && $scope.$parent.user.token;
+    }
 });
 
 controllers.controller('ResultsController', function($scope, $http){
-
+    $scope.authorised = function () {
+        return $scope.$parent.user && $scope.$parent.user.token;
+    }
 });
+
 
 

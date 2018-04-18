@@ -111,10 +111,10 @@
                 <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login(user)">Sign in</button>
             </p>
             <p>
-                <button class="btn btn-info btn-block" type="submit" ng-click="showNewAccount()">Create New Account</button>
+                <button class="btn btn-info btn-block" type="button" ng-click="showNewAccount()">Create New Account</button>
             </p>
             <p>
-                <button class="btn btn-info btn-block" ng-click="showForgottenCredentials()">Forgotten Credentials</button>
+                <button class="btn btn-info btn-block" type="button" ng-click="showForgottenCredentials()">Forgotten Credentials</button>
             </p>
         </form>
 
@@ -146,12 +146,13 @@
 
 <div id="main" class="container main" role="main" ng-if="user.token">
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active" ng-class="{active: currentPage == '/competitions'}"><a href="#/competitions"> Competition </a></li>
+        <li role="presentation" class="active" ng-class="{active: currentPage == '/account'}"><a href="#/account"> Account </a></li>
+        <li role="presentation" ng-class="{active: currentPage == '/competitions'}"><a href="#/competitions"> Competition </a></li>
         <li role="presentation" ng-class="{active: currentPage == '/entries'}"><a href="#/entries"> Entries </a></li>
         <li role="presentation" ng-class="{active: currentPage == '/results'}"><a href="#/results"> Results </a></li>
     </ul>
     <div class="row">
-        <div class="content col-md-9">
+        <div class="content">
             <div ng-view>
             </div>
         </div>
