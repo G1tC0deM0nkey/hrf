@@ -100,9 +100,9 @@
 
         <form class="form-signin" _lpchecked="1">
             <h2 class="form-signin-heading">Please Sign In</h2>
-            <label for="inputUsername" class="sr-only">Username</label>
+            <label for="inputUsername" class="sr-only"> Username : </label>
             <input id="inputUsername" ng-model="user.userName" class="form-control" placeholder="Username" required="" autofocus="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
-            <label for="inputPassword" class="sr-only">Password</label>
+            <label for="inputPassword" class="sr-only"> Password : </label>
             <input type="password" ng-model="user.password" id="inputPassword" class="form-control" placeholder="Password" required="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: pointer;">
 
             <br/>
@@ -137,7 +137,15 @@
 
         <div class="row">
 
-            Create a new user account
+                <form class="form-group">
+                    <p><label for="userNameField" class="sr-only"> Username : </label><input id="userNameField" type="text" class="form-control" placeholder="Username" ng-model="newUser.userName"/></p>
+                    <p><label for="displayNameField" class="sr-only"> Display Name : </label><input id="displayNameField" type="text" class="form-control" placeholder="Display Name" ng-model="newUser.displayName"/></p>
+                    <p><label for="emailField" class="sr-only"> Email : </label><input id="emailField" type="email" class="form-control" placeholder="Email Address" ng-model="newUser.email"/></p>
+                    <p><label for="pinField" class="sr-only"> Pin/Password : </label><input id="pinField" type="password" class="form-control" placeholder="Pin/Password" ng-model="newUser.pin" pattern=".{4,}" required title="4 characters/digits minimum"/></p>
+                    <p><label for="pinConfirmField" class="sr-only"> Confirm Pin/Password : </label><input id="pinConfirmField" type="password" class="form-control" placeholder="Confirm Pin/Password" ng-model="newUser.pinConfirm" pattern=".{4,}" required title="4 characters/digits minimum"/></p>
+                    <p><label for="tokenField" class="sr-only"> Token : </label><input id="tokenField" type="text" class="form-control" placeholder="Enter a valid code (provided by the organiser) to create a user" ng-model="newUser.code"/></p>
+                    <p><button type="submit" class="btn btn-primary" ng-click="createNewUser()">Create User</button></p>
+                </form>
 
         </div>
 

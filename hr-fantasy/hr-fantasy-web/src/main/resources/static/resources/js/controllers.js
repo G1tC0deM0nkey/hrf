@@ -13,6 +13,9 @@ controllers.controller('UserController', function ($scope, $http) {
         token: null
     };
 
+    $scope.newUser = {
+    };
+
     $scope.login = function(user) {
 
         var loginItem = $( "li[id='loginitem']" )[0];
@@ -38,7 +41,7 @@ controllers.controller('UserController', function ($scope, $http) {
 
     $scope.logout = function(user) {
 
-        $http.post('user/logout?username=' + user.userName)
+        $http.post('/user/logout?username=' + user.userName)
             .success(function(data) {
                 var user = {};
 
@@ -96,6 +99,23 @@ controllers.controller('UserController', function ($scope, $http) {
 
         var sia = $("#signinalert");
         sia.addClass('hidden');
+    }
+
+    $scope.createNewUser = function() {
+
+        $http({
+            method: "POST",
+            url: "/user/add",
+            data: JSON.stringify($scope.newUser),
+            headers: { 'Content-type': 'application/json' }
+        })
+        .then(function (success) {
+            alert(success);
+        },
+        function(error) {
+            alert(error);
+        });
+
     }
 
 });

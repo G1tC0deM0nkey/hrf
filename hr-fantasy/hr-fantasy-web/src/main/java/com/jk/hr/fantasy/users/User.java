@@ -8,7 +8,7 @@ public class User implements Keyed {
 
     private String userName;
 
-    private String name;
+    private String displayName;
 
     private String email;
 
@@ -29,12 +29,12 @@ public class User implements Keyed {
         this.userName = userName;
     }
 
-    public String getName() {
-        return name;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDisplayName(String name) {
+        this.displayName = name;
     }
 
     public String getEmail() {
@@ -68,7 +68,7 @@ public class User implements Keyed {
         User user = (User) o;
         return admin == user.admin &&
                 Objects.equals(userName, user.userName) &&
-                Objects.equals(name, user.name) &&
+                Objects.equals(displayName, user.displayName) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(pin, user.pin);
     }
@@ -76,14 +76,14 @@ public class User implements Keyed {
     @Override
     public int hashCode() {
 
-        return Objects.hash(userName, name, email, pin, admin);
+        return Objects.hash(userName, displayName, email, pin, admin);
     }
 
     @Override
     public String toString() {
         return "setUserName{" +
                 "userName='" + userName + '\'' +
-                ", name='" + name + '\'' +
+                ", displayName='" + displayName + '\'' +
                 ", email='" + email + '\'' +
                 ", pin='" + pin + '\'' +
                 ", admin=" + admin +
