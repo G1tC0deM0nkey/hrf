@@ -1,9 +1,9 @@
 package com.jk.hr.fantasy.controller;
 
-import com.jk.hr.fantasy.core.Competition;
-import com.jk.hr.fantasy.core.Race;
-import com.jk.hr.fantasy.core.Stage;
+import com.jk.hr.fantasy.core.*;
 import com.jk.hr.fantasy.data.DataContext;
+import com.jk.hr.fantasy.dto.CompetitionDto;
+import com.jk.hr.fantasy.dto.CompetitionsDto;
 import com.jk.hr.fantasy.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,43 +24,35 @@ public class CompetitionController {
     @Resource(name="userTokenRepository")
     UserTokenRepository userTokenRepository;
 
-    @RequestMapping(value="add", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    @ResponseStatus(code= HttpStatus.OK)
-    public void addCompetition(@RequestParam String username, @RequestParam String token, @RequestBody Competition competition) throws Exception {
-        //If authorised
-        User adminUser = userTokenRepository.validate(username, token);
-        if(adminUser != null && adminUser.isAdmin()) {
-            dataContext.store(competition);
-        }
-    }
-
     @RequestMapping(value="list", method=RequestMethod.GET)
-    public @ResponseBody List<String> listCompetitions(@RequestParam String username, @RequestParam String token) throws Exception {
+    public @ResponseBody
+    CompetitionsDto listCompetitions(@RequestParam String username, @RequestParam String token) throws Exception {
         //If authorised
         User ordinaryUser = userTokenRepository.validate(username, token);
         if(ordinaryUser != null) {
-            return dataContext.list(Competition.class);
+            List <String> activeCompetitions = dataContext.list(ActiveCompetition.class);
+
+            CompetitionsDto competitions = new CompetitionsDto();
+
+            for(String activeComp : activeCompetitions) {
+
+                List<String> entrants = dataContext.list(Entrant.class, activeComp );
+                CompetitionDto competition = new CompetitionDto(activeComp);
+                competition.setEntrants(entrants.size());
+
+                Entrant entrant = dataContext.load(Entrant.class, activeComp, username);
+                if(entrant != null) {
+                    competition.setEntered(true);
+                }
+
+                competitions.getActive().add(competition);
+
+            }
+
+
         }
 
         return null;
-    }
-
-    @RequestMapping(value="stage/add", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    @ResponseStatus(code= HttpStatus.OK)
-    public void addStage(@RequestParam String username, @RequestParam String token, @RequestBody Stage stage) throws Exception {
-        //If authorised
-        User adminUser = userTokenRepository.validate(username, token);
-        if(adminUser != null && adminUser.isAdmin()) {
-
-            Competition competition = dataContext.load(Competition.class, stage.getCompetition());
-            if(competition != null) {
-                if(!competition.getStages().contains(stage.getName())) {
-                    competition.getStages().add(stage.getName());
-                    dataContext.store(competition);
-                }
-                dataContext.store(stage);
-            }
-        }
     }
 
     @RequestMapping(value="stage/list", method=RequestMethod.GET)
@@ -72,26 +64,6 @@ public class CompetitionController {
         }
 
         return null;
-    }
-
-    @RequestMapping(value="race/add", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    @ResponseStatus(code= HttpStatus.OK)
-    public void addRace(@RequestParam String username, @RequestParam String token, @RequestBody Race race) throws Exception {
-        //If authorised
-        User adminUser = userTokenRepository.validate(username, token);
-        if(adminUser != null && adminUser.isAdmin()) {
-
-            Competition competition = dataContext.load(Competition.class, race.getCompetition());
-            Stage stage = dataContext.load(Stage.class, race.getCompetition(), race.getStage());
-
-            if(competition != null && stage != null) {
-                if(!stage.getRaces().contains(race.getName())) {
-                    stage.getRaces().add(race.getName());
-                    dataContext.store(stage);
-                }
-                dataContext.store(race);
-            }
-        }
     }
 
     @RequestMapping(value="race/list", method=RequestMethod.GET)

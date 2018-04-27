@@ -56,7 +56,7 @@ public class UserController {
                    return new NewUserResponseDto("Failure - User already exists - Please try again with a different username.",false);
                }
 
-               Code code = dataContext.load(Code.class, user.getCode().toLowerCase());
+               Code code = dataContext.load(Code.class, user.getCode().toUpperCase());
                if(code != null) {
                    dataContext.store(newUser);
                }

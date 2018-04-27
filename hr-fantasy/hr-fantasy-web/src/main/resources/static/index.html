@@ -153,11 +153,12 @@
 </div>
 
 <div id="main" class="container main" role="main" ng-if="user.token">
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-pills nav-justified">
         <li role="presentation" class="active" ng-class="{active: currentPage == '/account'}"><a href="#/account"> Account </a></li>
         <li role="presentation" ng-class="{active: currentPage == '/competitions'}"><a href="#/competitions"> Competition </a></li>
         <li role="presentation" ng-class="{active: currentPage == '/entries'}"><a href="#/entries"> Entries </a></li>
         <li role="presentation" ng-class="{active: currentPage == '/results'}"><a href="#/results"> Results </a></li>
+        <li id="adminTab" role="presentation" ng-class="{active: currentPage == '/admin', hidden: !user.admin}"><a href="#/admin"> Admin </a></li>
     </ul>
     <div class="row">
         <div class="content">

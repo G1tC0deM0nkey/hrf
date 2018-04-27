@@ -20,6 +20,10 @@ myApp.config(['$routeProvider', '$httpProvider',
                     templateUrl: 'views/results.html',
                     controller: 'ResultsController'
                 })
+                .when('/admin', {
+                    templateUrl: 'views/admin.html',
+                    controller: 'AdminController'
+                })
 		        .when('/logout', {
                     templateUrl: 'views/home.html',
                     controller: 'HomeController'

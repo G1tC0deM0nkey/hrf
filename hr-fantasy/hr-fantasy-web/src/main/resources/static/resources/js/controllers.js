@@ -71,6 +71,7 @@ controllers.controller('UserController', function ($scope, $http) {
             loginItem.className='dropdown';
             logoutItem.className='dropdown hide';
         }
+
     };
 
     $scope.showNewAccount = function() {
@@ -145,6 +146,14 @@ controllers.controller('ResultsController', function($scope, $http){
     $scope.authorised = function () {
         return $scope.$parent.user && $scope.$parent.user.token;
     }
+});
+
+controllers.controller('AdminController', function($scope, $http){
+
+    $scope.authorised = function () {
+        return $scope.$parent.user && $scope.$parent.user.token && $scope.$parent.user.admin;
+    }
+
 });
 
 

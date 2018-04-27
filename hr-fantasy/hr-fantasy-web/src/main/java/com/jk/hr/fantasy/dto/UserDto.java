@@ -6,6 +6,8 @@ public class UserDto {
 
     String displayName;
 
+    String email;
+
     String token;
 
     boolean admin;
@@ -13,9 +15,10 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(String userName, String displayName, String token, boolean admin) {
+    public UserDto(String userName, String displayName, String email, String token, boolean admin) {
         this.userName = userName;
         this.displayName = displayName;
+        this.email = email;
         this.token = token;
         this.admin = admin;
     }
@@ -50,5 +53,13 @@ public class UserDto {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

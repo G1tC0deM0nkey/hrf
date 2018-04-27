@@ -30,6 +30,7 @@ public class UserTokenRepository {
                 dto.setUserName(token.user.getUserName());
                 dto.setToken(token.token);
                 dto.setDisplayName(token.user.getDisplayName());
+                dto.setEmail(token.user.getEmail());
                 dto.setAdmin(token.user.isAdmin());
                 return dto;
             }
@@ -46,6 +47,7 @@ public class UserTokenRepository {
                     dto.setUserName(token.user.getUserName());
                     dto.setToken(token.token);
                     dto.setDisplayName(token.user.getDisplayName());
+                    dto.setEmail(token.user.getEmail());
                     dto.setAdmin(token.user.isAdmin());
                     return dto;
                 }
